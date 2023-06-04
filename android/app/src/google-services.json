@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "763651153496",
+    "project_id": "livre-mobile",
+    "storage_bucket": "livre-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763651153496:android:0cd192e4f7fbbfe983342d",
+        "android_client_info": {
+          "package_name": "com.livre_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "763651153496-k8lk4qqb2amr2g3b5d2vnlcm2nnmdp7n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6h3tAF1lnCMnJIm_m51mZQXPSJppwiLQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "763651153496-k8lk4qqb2amr2g3b5d2vnlcm2nnmdp7n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
