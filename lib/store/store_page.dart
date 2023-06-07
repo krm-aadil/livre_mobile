@@ -5,10 +5,10 @@ class StorePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Store'),
+        title: Text('you are a goddamn genius'),
       ),
       body: Center(
-        child: Text('This is the store page.'),
+        child: Text('This is the store pagesss.'),
       ),
     );
   }
