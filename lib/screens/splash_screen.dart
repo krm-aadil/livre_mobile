@@ -41,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
             top: 0,
             left: -10,
             child: Image.asset(
-              'assets/top.png', //  your image path
+              'assets/top.png',
               width: 250,
               height: 250,
             ),
@@ -50,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
             bottom: 0,
             right: 0,
             child: Image.asset(
-              'assets/bottom.png', // image path
+              'assets/bottom.png', 
               width: 300,
               height: 300,
             ),
