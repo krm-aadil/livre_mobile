@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
+import 'cart/cart_page.dart';
+import 'profile/profile_Page.dart';
+import 'store/store_page.dart';
 
 class HomePage extends StatelessWidget {
   final User user;
@@ -68,34 +71,34 @@ class HomePage extends StatelessWidget {
               selectedIndex:
                   0, // Replace with the selected index of the current page
               onTabChange: (index) {
-                // Handle tab change
                 switch (index) {
                   case 0:
                     Navigator.pushReplacement(
                       context,
-                      CustomPageRoute(page: HomePage(user)),
+                      MaterialPageRoute(builder: (context) => HomePage(user)),
                     );
                     break;
                   case 1:
                     Navigator.pushReplacement(
                       context,
-                      CustomPageRoute(page: StorePage()),
+                      MaterialPageRoute(builder: (context) => StorePage()),
                     );
                     break;
                   case 2:
                     Navigator.pushReplacement(
                       context,
-                      CustomPageRoute(page: CartPage()),
+                      MaterialPageRoute(builder: (context) => CartPage()),
                     );
                     break;
                   case 3:
                     Navigator.pushReplacement(
                       context,
-                      CustomPageRoute(page: ProfilePage()),
+                      MaterialPageRoute(builder: (context) => ProfilePage()),
                     );
                     break;
                 }
               },
+
               tabs: [
                 GButton(
                   icon: LineIcons.home,
@@ -142,46 +145,4 @@ class CustomPageRoute<T> extends PageRouteBuilder<T> {
             );
           },
         );
-}
-
-class StorePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Store'),
-      ),
-      body: Center(
-        child: Text('Store Page'),
-      ),
-    );
-  }
-}
-
-class CartPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Cart'),
-      ),
-      body: Center(
-        child: Text('Cart Page'),
-      ),
-    );
-  }
-}
-
-class ProfilePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Profile'),
-      ),
-      body: Center(
-        child: Text('Profile Page'),
-      ),
-    );
-  }
 }
