@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -7,6 +6,8 @@ import 'package:line_icons/line_icons.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'cart/cart_page.dart';
 import 'profile/profile_Page.dart';
+import 'store/BookAuthor_page.dart';
+import 'store/book_page.dart';
 import 'store/store_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -79,22 +80,39 @@ class HomePage extends StatelessWidget {
                   height: 200,
                   child: CarouselSlider(
                     items: books.map((book) {
-                      return Image(
-                        image: AssetImage(book.imageUrl),
-                        fit: BoxFit.cover,
+                      return GestureDetector(
+                        onTap: () {
+                          // Handle book card click
+                          // You can navigate to a book detail page or perform any other action
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          margin: EdgeInsets.symmetric(horizontal: 8.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.asset(
+                              book.imageUrl,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
                       );
                     }).toList(),
                     options: CarouselOptions(
                       height: 200,
-                      viewportFraction: 1.0,
+                      viewportFraction: 0.9,
                       enlargeCenterPage: false,
                       autoPlay: true,
                       aspectRatio: 2.0,
                     ),
                   ),
                 ),
+                SizedBox(height: 16),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding: EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
                     'New Arrivals',
                     style: TextStyle(
@@ -103,24 +121,100 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
+                SizedBox(height: 8),
                 Container(
-                  height: 200,
+                  height: 220,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: books.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
-                          // Handle book card click
-                          // You can navigate to a book detail page or perform any other action
+                          // Navigate to the book page when the card is clicked
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => BookPage(books[index])),
+                          );
                         },
-                        child: BookCard(book: books[index]),
+                        child: Container(
+                          width: 140,
+                          margin: EdgeInsets.only(
+                            left: index == 1 ? 16 : 32,
+                            right: index == books.length - 1 ? 16 : 32,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Color.fromARGB(255, 41, 83, 74),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      top: -8,
+                                      right: -3,
+                                      child: IconButton(
+                                        icon: Icon(
+                                          Icons.favorite_border,
+                                          color:
+                                              Color.fromARGB(255, 7, 255, 230),
+                                          size: 20,
+                                        ),
+                                        onPressed: () {
+                                          // Handle favorite button click
+                                        },
+                                      ),
+                                    ),
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Image.asset(
+                                        books[index].imageUrl,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                books[index].title,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                books[index].author,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                '\$${books[index].price.toStringAsFixed(2)}',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey[600],
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       );
                     },
                   ),
                 ),
+                SizedBox(height: 16),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding: EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
                     'Best Authors',
                     style: TextStyle(
@@ -129,18 +223,66 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
+                SizedBox(height: 8),
                 Container(
-                  height: 300,
+                  height: 360,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: authors.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
-                          // Handle author card click
-                          // You can navigate to an author detail page or perform any other action
+                          // Navigate to the book author page when the card is clicked
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    BookAuthorPage(authors[index])),
+                          );
                         },
-                        child: AuthorCard(author: authors[index]),
+                        child: Container(
+                          width: 160,
+                          margin: EdgeInsets.only(
+                            left: index == 1 ? 18 : 22,
+                            right: index == authors.length - 1 ? 18 : 16,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.grey[300],
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.asset(
+                                      authors[index].imageUrl,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                authors[index].name,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                authors[index].genre,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       );
                     },
                   ),
@@ -333,12 +475,14 @@ class Book {
   final String author;
   final String imageUrl;
   final double price;
+  final String description; // New field for book description
 
   Book({
     required this.title,
     required this.author,
     required this.imageUrl,
     required this.price,
+    required this.description,
   });
 
   factory Book.fromJson(Map<String, dynamic> json) {
@@ -347,6 +491,8 @@ class Book {
       author: json['author'],
       imageUrl: json['image'],
       price: json['price'] != null ? json['price'].toDouble() : 0.0,
+      description: json['description'] ??
+          '', // Initialize description from JSON or empty string
     );
   }
 }

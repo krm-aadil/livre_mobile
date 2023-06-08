@@ -4,8 +4,11 @@ import 'package:line_icons/line_icons.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../home_page.dart';
 import '../store/store_page.dart';
-import '../profile/profile_Page.dart';
+import '../profile/profile_page.dart';
 import 'cart_payments.dart';
+import 'package:livre_mobile/store/book_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CartPage extends StatefulWidget {
   @override
@@ -17,6 +20,9 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
+    // Access the BookProvider
+    final bookProvider = Provider.of<BookProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -38,79 +44,94 @@ class _CartPageState extends State<CartPage> {
               ),
             ),
           ),
-          Card(
-            elevation: 2,
-            margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 100,
-                    height: 120,
-                    child: Image.asset(
-                      'assets/login.png', // Placeholder image path
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  SizedBox(width: 16),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Book Title', // Replace with book name
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 8),
-                        Text(
-                          'Author Name', // Replace with author name
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        SizedBox(height: 8),
-                        Text(
-                          '\$19.99', // Replace with price
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 16),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            ElevatedButton(
-                              onPressed: () {
-                                // Handle move to wishlist button press
-                              },
-                              child: Text('Move to Wishlist'),
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.teal,
-                                onPrimary: Colors.white,
-                              ),
+          // Display cart items
+          Consumer<BookProvider>(
+            builder: (context, provider, _) {
+              final cartItems = provider.getCartItems();
+              return ListView.builder(
+                shrinkWrap: true,
+                itemCount: cartItems.length,
+                itemBuilder: (context, index) {
+                  final book = cartItems[index];
+                  return Card(
+                    elevation: 2,
+                    margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 100,
+                            height: 120,
+                            child: Image.asset(
+                              book.imageUrl,
+                              fit: BoxFit.cover,
                             ),
-                            ElevatedButton(
-                              onPressed: () {
-                                // Handle remove button press
-                              },
-                              child: Text('Remove'),
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.red,
-                                onPrimary: Colors.white,
-                              ),
+                          ),
+                          SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  book.title,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  book.author,
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  '\$${book.price}',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 16),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        // Handle move to wishlist button press
+                                      },
+                                      child: Text('Move to Wishlist'),
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Colors.teal,
+                                        onPrimary: Colors.white,
+                                      ),
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        // Remove the book from the cart
+                                        provider.removeFromCart(book);
+                                      },
+                                      child: Text('Remove'),
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Colors.red,
+                                        onPrimary: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
+                  );
+                },
+              );
+            },
           ),
           Spacer(),
           Card(
@@ -122,14 +143,16 @@ class _CartPageState extends State<CartPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Total Amount: \$99.99', // Replace with total amount
+                    'Total Amount: \$${bookProvider.getTotalAmount()}',
                     style: TextStyle(fontSize: 18),
                   ),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => CartPayments()),
+                        MaterialPageRoute(
+                          builder: (context) => CartPayments(),
+                        ),
                       );
                     },
                     child: Text('Place Order'),

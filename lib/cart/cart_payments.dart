@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'cart_address.dart';
 import 'cart_merci.dart';
 import 'cart_card.dart';
@@ -11,22 +10,7 @@ class CartPayments extends StatefulWidget {
 
 class _CartPaymentsState extends State<CartPayments> {
   int _selectedPaymentMethod = 0;
-
-  void _proceedToCheckout() {
-    if (_selectedPaymentMethod == 0) {
-      // Cash on Delivery selected
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => CartMerci()),
-      );
-    } else {
-      // Debit Card or Credit Card selected
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => CartCard()),
-      );
-    }
-  }
+  String? deliveryAddress;
 
   @override
   Widget build(BuildContext context) {
@@ -73,69 +57,58 @@ class _CartPaymentsState extends State<CartPayments> {
                   margin: EdgeInsets.all(16),
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                      'Confirm Delivering Address',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Delivery Address 1',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          '1234 Main Street, Apartment 5B, City Center, State, Country',
+                          style: TextStyle(
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 16),
-              Text(
-                'Selected Book',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Card(
-                elevation: 2,
-                margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 100,
-                        height: 120,
-                        child: Image.asset(
-                          'assets/login.png', // Placeholder image path
-                          fit: BoxFit.cover,
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CartAddress()),
+                  );
+                },
+                child: Card(
+                  margin: EdgeInsets.all(16),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Delivery Address 2',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Book Title', // Replace with book name
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(height: 8),
-                            Text(
-                              'Author Name', // Replace with author name
-                              style: TextStyle(fontSize: 16),
-                            ),
-                            SizedBox(height: 8),
-                            Text(
-                              '\$19.99', // Replace with price
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
+                        SizedBox(height: 8),
+                        Text(
+                          '5678 Elm Street, Floor 10, Suburb, State, Country',
+                          style: TextStyle(
+                            fontSize: 14,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -196,12 +169,38 @@ class _CartPaymentsState extends State<CartPayments> {
                 ),
               ),
               SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: _proceedToCheckout,
-                child: Text('Proceed to Checkout'),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.teal,
-                  onPrimary: Colors.white,
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (_selectedPaymentMethod == 0) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => CartMerci()),
+                      );
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => CartCard()),
+                      );
+                    }
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 12.0,
+                      horizontal: 24.0,
+                    ),
+                    child: Text(
+                      'Proceed to Checkout',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.teal,
+                    onPrimary: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
                 ),
               ),
               SizedBox(height: 16),

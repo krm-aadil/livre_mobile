@@ -1,40 +1,56 @@
 {
     "books": [
       {
-        "title": "Book 1",
-        "author": "Author 1",
+        "title": "Harry Potter 1",
+        "author": "J.K. Rowling",
         "image": "assets/login.png",
-        "price": 10.99
+        "price": 10.99,
+        "description": "Harry Potter and the Philosopher's Stone is the first novel in the Harry Potter series. It follows Harry Potter, a young wizard, as he discovers his magical heritage and attends Hogwarts School of Witchcraft and Wizardry."
       },
       {
-        "title": "Book 2",
-        "author": "Author 2",
+        "title": "To Kill a Mockingbird",
+        "author": "Harper Lee",
         "image": "assets/login.png",
-        "price": 12.99
+        "price": 12.99,
+        "description": "To Kill a Mockingbird is a novel by Harper Lee. Set in the 1930s, the story explores racial injustice and moral development through the eyes of Scout Finch, a young girl living in a small Southern town."
+      },
+      {
+        "title": "The Great Gatsby",
+        "author": "F. Scott Fitzgerald",
+        "image": "assets/login.png",
+        "price": 12.99,
+        "description": "The Great Gatsby is a classic American novel by F. Scott Fitzgerald. Set in the Roaring Twenties, it tells the story of Jay Gatsby's pursuit of the American Dream and his love for the beautiful Daisy Buchanan."
+      },
+      {
+        "title": "Pride and Prejudice",
+        "author": "Jane Austen",
+        "image": "assets/login.png",
+        "price": 12.99,
+        "description": "Pride and Prejudice is a romantic novel by Jane Austen. The story follows the Bennet sisters as they navigate social class, love, and marriage in 19th-century England."
       }
     ],
     "authors": [
       {
-        "name": "Author 1",
+        "name": "J.K. Rowling",
         "image": "assets/login.png",
-        "bio": "Author 1 Bio"
+        "bio": "J.K. Rowling is a British author best known for writing the Harry Potter series. Her books have become a global phenomenon and have been adapted into successful film franchises."
       },
       {
-        "name": "Author 2",
+        "name": "Harper Lee",
         "image": "assets/login.png",
-        "bio": "Author 2 Bio"
+        "bio": "Harper Lee was an American novelist widely known for her novel To Kill a Mockingbird. The book explores themes of racial inequality and has had a significant impact on American literature."
       }
     ],
     "categories": [
       {
-        "name": "Category 1",
+        "name": "Fantasy",
         "image": "assets/login.png",
-        "description": "Category 1 Description"
+        "description": "Fantasy is a genre of speculative fiction that typically features magical and supernatural elements. It often takes place in imaginary worlds or settings and involves epic adventures and quests."
       },
       {
-        "name": "Category 2",
+        "name": "Classics",
         "image": "assets/login.png",
-        "description": "Category 2 Description"
+        "description": "Classics is a category of literature that includes enduring works of art and literature from ancient times to the present. These books have withstood the test of time and continue to be influential."
       }
     ]
   }
