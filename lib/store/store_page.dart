@@ -4,7 +4,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import '../cart/cart_page.dart';
 import '../home_page.dart';
-import '../profile/profile_Page.dart';
+import '../profile/profile_page.dart';
 
 class StorePage extends StatefulWidget {
   @override
@@ -17,11 +17,87 @@ class _StorePageState extends State<StorePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Store'),
-      ),
-      body: Center(
-        child: Text('This is the store page.'),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Livre',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  'The Book App for curious minds',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey[600],
+                  ),
+                ),
+                SizedBox(height: 16),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // Handle category button pressed
+                        },
+                        child: Text('Categories'),
+                      ),
+                    ),
+                    SizedBox(width: 16),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // Handle author button pressed
+                        },
+                        child: Text('Authors'),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: GridView.count(
+              crossAxisCount: 2,
+              padding: EdgeInsets.all(16),
+              children: [
+                CircleImage(
+                  image: AssetImage('assets/login.png'),
+                  label: 'Fantasy',
+                ),
+                CircleImage(
+                  image: AssetImage('assets/login.png'),
+                  label: 'Fiction',
+                ),
+                CircleImage(
+                  image: AssetImage('assets/login.png'),
+                  label: 'Mystery',
+                ),
+                CircleImage(
+                  image: AssetImage('assets/login.png'),
+                  label: 'Romance',
+                ),
+                CircleImage(
+                  image: AssetImage('assets/login.png'),
+                  label: 'Science Fiction',
+                ),
+                CircleImage(
+                  image: AssetImage('assets/cooking.jpg'),
+                  label: 'Cooking',
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -34,10 +110,8 @@ class _StorePageState extends State<StorePage> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
             child: GNav(
-              rippleColor: Colors
-                  .teal[800]!, // Add the "!" operator to access the color value
-              hoverColor: Colors
-                  .teal[700]!, // Add the "!" operator to access the color value
+              rippleColor: Colors.teal[800]!,
+              hoverColor: Colors.teal[700]!,
               haptic: true,
               tabBorderRadius: 15,
               tabActiveBorder: Border.all(color: Colors.black, width: 1),
@@ -51,44 +125,15 @@ class _StorePageState extends State<StorePage> {
               color: Colors.teal[800],
               activeColor: Colors.black,
               iconSize: 24,
-              tabBackgroundColor: Colors.black.withOpacity(0.1),
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-              selectedIndex: _currentIndex,
-              onTabChange: (index) {
-                // Handle tab change
-                switch (index) {
-                  case 0:
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              HomePage(FirebaseAuth.instance.currentUser!)),
-                    );
-                    break;
-                  case 1:
-                    // Stay on StorePage
-                    break;
-                  case 2:
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => CartPage()),
-                    );
-                    break;
-                  case 3:
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => ProfilePage()),
-                    );
-                    break;
-                }
-              },
+              tabBackgroundColor: Colors.black,
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               tabs: [
                 GButton(
                   icon: LineIcons.home,
                   text: 'Home',
                 ),
                 GButton(
-                  icon: LineIcons.store,
+                  icon: LineIcons.bookmark,
                   text: 'Store',
                 ),
                 GButton(
@@ -100,10 +145,46 @@ class _StorePageState extends State<StorePage> {
                   text: 'Profile',
                 ),
               ],
+              selectedIndex: _currentIndex,
+              onTabChange: (index) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class CircleImage extends StatelessWidget {
+  final ImageProvider image;
+  final String label;
+
+  const CircleImage({
+    required this.image,
+    required this.label,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        CircleAvatar(
+          radius: 60,
+          backgroundImage: image,
+        ),
+        SizedBox(height: 8),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
     );
   }
 }

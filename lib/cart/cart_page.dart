@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../home_page.dart';
 import '../store/store_page.dart';
 import '../profile/profile_Page.dart';
+import 'cart_payments.dart';
 
 class CartPage extends StatefulWidget {
   @override
@@ -18,10 +19,130 @@ class _CartPageState extends State<CartPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cart'),
+        backgroundColor: Colors.white,
+        title: Text(
+          'Cart',
+          style: TextStyle(color: Colors.black),
+        ),
       ),
-      body: Center(
-        child: Text('This is the cart page.'),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              'Livre',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Card(
+            elevation: 2,
+            margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 100,
+                    height: 120,
+                    child: Image.asset(
+                      'assets/login.png', // Placeholder image path
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Book Title', // Replace with book name
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          'Author Name', // Replace with author name
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          '\$19.99', // Replace with price
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 16),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                // Handle move to wishlist button press
+                              },
+                              child: Text('Move to Wishlist'),
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.teal,
+                                onPrimary: Colors.white,
+                              ),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                // Handle remove button press
+                              },
+                              child: Text('Remove'),
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.red,
+                                onPrimary: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Spacer(),
+          Card(
+            elevation: 2,
+            margin: EdgeInsets.all(16),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Total Amount: \$99.99', // Replace with total amount
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => CartPayments()),
+                      );
+                    },
+                    child: Text('Place Order'),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.teal,
+                      onPrimary: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -34,10 +155,8 @@ class _CartPageState extends State<CartPage> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
             child: GNav(
-              rippleColor: Colors
-                  .teal[800]!, // Add the "!" operator to access the color value
-              hoverColor: Colors
-                  .teal[700]!, // Add the "!" operator to access the color value
+              rippleColor: Colors.teal[800]!,
+              hoverColor: Colors.teal[700]!,
               haptic: true,
               tabBorderRadius: 15,
               tabActiveBorder: Border.all(color: Colors.black, width: 1),
