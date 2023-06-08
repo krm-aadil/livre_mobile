@@ -1,0 +1,41 @@
+{
+    "books": [
+      {
+        "title": "Book 1",
+        "author": "Author 1",
+        "image": "assets/login.png",
+        "price": 10.99
+      },
+      {
+        "title": "Book 2",
+        "author": "Author 2",
+        "image": "assets/login.png",
+        "price": 12.99
+      }
+    ],
+    "authors": [
+      {
+        "name": "Author 1",
+        "image": "assets/login.png",
+        "bio": "Author 1 Bio"
+      },
+      {
+        "name": "Author 2",
+        "image": "assets/login.png",
+        "bio": "Author 2 Bio"
+      }
+    ],
+    "categories": [
+      {
+        "name": "Category 1",
+        "image": "assets/login.png",
+        "description": "Category 1 Description"
+      },
+      {
+        "name": "Category 2",
+        "image": "assets/login.png",
+        "description": "Category 2 Description"
+      }
+    ]
+  }
+  
