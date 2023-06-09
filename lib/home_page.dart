@@ -75,7 +75,6 @@ class HomePage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  
                 ),
                 Container(
                   height: 200,
@@ -307,18 +306,16 @@ class HomePage extends StatelessWidget {
               rippleColor: Colors.teal[800]!,
               hoverColor: Colors.teal[700]!,
               haptic: true,
-              tabBorderRadius: 15,
-              tabActiveBorder: Border.all(color: Colors.black, width: 1),
+              tabBorderRadius: 30,
+              tabActiveBorder: Border.all(color: Colors.teal, width: 1),
               tabBorder: Border.all(color: Colors.teal, width: 1),
-              tabShadow: [
-                BoxShadow(color: Colors.teal.withOpacity(0.5), blurRadius: 0)
-              ],
+              tabShadow: [BoxShadow(color: Colors.teal, blurRadius: 0)],
               curve: Curves.easeOutExpo,
               duration: Duration(milliseconds: 250),
               gap: 8,
-              color: Colors.teal[800],
+              color: Color.fromARGB(255, 255, 255, 255),
               activeColor: Colors.black,
-              iconSize: 24,
+              iconSize: 30,
               tabBackgroundColor: Colors.black.withOpacity(0.1),
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               selectedIndex: 0,
