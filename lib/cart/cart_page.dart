@@ -25,147 +25,162 @@ class _CartPageState extends State<CartPage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.teal,
+        centerTitle: true,
         title: Text(
           'Cart',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
+        automaticallyImplyLeading: false, // Remove the back arrow icon
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              'Livre',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+      body: SingleChildScrollView(
+        // Make the page scrollable
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                'Livre',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-          // Display cart items
-          Consumer<BookProvider>(
-            builder: (context, provider, _) {
-              final cartItems = provider.getCartItems();
-              return ListView.builder(
-                shrinkWrap: true,
-                itemCount: cartItems.length,
-                itemBuilder: (context, index) {
-                  final book = cartItems[index];
-                  return Card(
-                    elevation: 2,
-                    margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            width: 100,
-                            height: 120,
-                            child: Image.asset(
-                              book.imageUrl,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          SizedBox(width: 16),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  book.title,
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                SizedBox(height: 8),
-                                Text(
-                                  book.author,
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                                SizedBox(height: 8),
-                                Text(
-                                  '\$${book.price}',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                SizedBox(height: 16),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        // Handle move to wishlist button press
-                                      },
-                                      child: Text('Move to Wishlist'),
-                                      style: ElevatedButton.styleFrom(
-                                        primary: Colors.teal,
-                                        onPrimary: Colors.white,
-                                      ),
+            // Display cart items
+            Consumer<BookProvider>(
+              builder: (context, provider, _) {
+                final cartItems = provider.getCartItems();
+                return Column(
+                  children: cartItems
+                      .map((book) => Card(
+                            elevation: 2,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 8),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: 100,
+                                    height: 120,
+                                    child: Image.asset(
+                                      book.imageUrl,
+                                      fit: BoxFit.cover,
                                     ),
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        // Remove the book from the cart
-                                        provider.removeFromCart(book);
-                                      },
-                                      child: Text('Remove'),
-                                      style: ElevatedButton.styleFrom(
-                                        primary: Colors.red,
-                                        onPrimary: Colors.white,
-                                      ),
+                                  ),
+                                  SizedBox(width: 16),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          book.title,
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        SizedBox(height: 8),
+                                        Text(
+                                          book.author,
+                                          style: TextStyle(fontSize: 16),
+                                        ),
+                                        SizedBox(height: 8),
+                                        Text(
+                                          '\$${book.price}',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        SizedBox(height: 16),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                // Handle move to wishlist button press
+                                              },
+                                              child: Text('Move to Wishlist'),
+                                              style: ElevatedButton.styleFrom(
+                                                primary: Colors.teal,
+                                                onPrimary: Colors.white,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                ),
+                                              ),
+                                            ),
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                // Remove the book from the cart
+                                                provider.removeFromCart(book);
+                                              },
+                                              child: Text('Remove'),
+                                              style: ElevatedButton.styleFrom(
+                                                primary: Colors.red,
+                                                onPrimary: Colors.white,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              ],
+                                  ),
+                                ],
+                              ),
                             ),
+                          ))
+                      .toList(),
+                );
+              },
+            ),
+            SizedBox(height: 16),
+            Card(
+              elevation: 2,
+              margin: EdgeInsets.all(16),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Total Amount: \$${bookProvider.getTotalAmount()}',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CartPayments(),
                           ),
-                        ],
+                        );
+                      },
+                      child: Text('Place Order'),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.teal,
+                        onPrimary: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
                       ),
                     ),
-                  );
-                },
-              );
-            },
-          ),
-          Spacer(),
-          Card(
-            elevation: 2,
-            margin: EdgeInsets.all(16),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Total Amount: \$${bookProvider.getTotalAmount()}',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => CartPayments(),
-                        ),
-                      );
-                    },
-                    child: Text('Place Order'),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.teal,
-                      onPrimary: Colors.white,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -181,18 +196,16 @@ class _CartPageState extends State<CartPage> {
               rippleColor: Colors.teal[800]!,
               hoverColor: Colors.teal[700]!,
               haptic: true,
-              tabBorderRadius: 15,
-              tabActiveBorder: Border.all(color: Colors.black, width: 1),
+              tabBorderRadius: 30,
+              tabActiveBorder: Border.all(color: Colors.teal, width: 1),
               tabBorder: Border.all(color: Colors.teal, width: 1),
-              tabShadow: [
-                BoxShadow(color: Colors.teal.withOpacity(0.5), blurRadius: 0)
-              ],
+              tabShadow: [BoxShadow(color: Colors.teal, blurRadius: 0)],
               curve: Curves.easeOutExpo,
               duration: Duration(milliseconds: 250),
               gap: 8,
-              color: Colors.teal[800],
+              color: Color.fromARGB(255, 255, 255, 255),
               activeColor: Colors.black,
-              iconSize: 24,
+              iconSize: 30,
               tabBackgroundColor: Colors.black.withOpacity(0.1),
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               selectedIndex: _currentIndex,

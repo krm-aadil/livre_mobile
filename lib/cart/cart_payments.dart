@@ -94,7 +94,7 @@ class _CartPaymentsState extends State<CartPayments> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Delivery Address 2',
+                          'Mobile Number',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -102,7 +102,7 @@ class _CartPaymentsState extends State<CartPayments> {
                         ),
                         SizedBox(height: 8),
                         Text(
-                          '5678 Elm Street, Floor 10, Suburb, State, Country',
+                          '011 572 572 8                                                  ',
                           style: TextStyle(
                             fontSize: 14,
                           ),

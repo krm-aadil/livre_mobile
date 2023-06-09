@@ -37,6 +37,17 @@ class _StorePageState extends State<StorePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.teal,
+        centerTitle: true,
+        title: Text(
+          'Store',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        automaticallyImplyLeading: false, // Remove the back arrow icon
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,22 +57,6 @@ class _StorePageState extends State<StorePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Livre',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'The Book App for curious minds',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey[600],
-                    ),
-                  ),
-                  SizedBox(height: 16),
                   Row(
                     children: [
                       Expanded(
@@ -78,8 +73,8 @@ class _StorePageState extends State<StorePage> {
                             onPrimary: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(8.0),
-                                bottomLeft: Radius.circular(8.0),
+                                topLeft: Radius.circular(20),
+                                bottomLeft: Radius.circular(20),
                               ),
                             ),
                           ),
@@ -101,8 +96,8 @@ class _StorePageState extends State<StorePage> {
                             onPrimary: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(8.0),
-                                bottomRight: Radius.circular(8.0),
+                                topRight: Radius.circular(20),
+                                bottomRight: Radius.circular(20),
                               ),
                             ),
                           ),
@@ -172,18 +167,16 @@ class _StorePageState extends State<StorePage> {
               rippleColor: Colors.teal[800]!,
               hoverColor: Colors.teal[700]!,
               haptic: true,
-              tabBorderRadius: 15,
-              tabActiveBorder: Border.all(color: Colors.black, width: 1),
+              tabBorderRadius: 30,
+              tabActiveBorder: Border.all(color: Colors.teal, width: 1),
               tabBorder: Border.all(color: Colors.teal, width: 1),
-              tabShadow: [
-                BoxShadow(color: Colors.teal.withOpacity(0.5), blurRadius: 0)
-              ],
+              tabShadow: [BoxShadow(color: Colors.teal, blurRadius: 0)],
               curve: Curves.easeOutExpo,
               duration: Duration(milliseconds: 250),
               gap: 8,
-              color: Colors.teal[800],
+              color: Color.fromARGB(255, 255, 255, 255),
               activeColor: Colors.black,
-              iconSize: 24,
+              iconSize: 30,
               tabBackgroundColor: Colors.black.withOpacity(0.1),
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               selectedIndex: _currentIndex,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ViewProfile extends StatefulWidget {
   @override
@@ -21,6 +22,17 @@ class _ViewProfileState extends State<ViewProfile> {
         'example@example.com'; // Replace with actual value from Firebase
     _passwordController.text =
         'password'; // Replace with actual value from Firebase
+
+    // Retrieve the saved image path from shared preferences
+    _getImagePath();
+  }
+
+  Future<void> _getImagePath() async {
+    final prefs = await SharedPreferences.getInstance();
+    final imagePath = prefs.getString('imagePath');
+    setState(() {
+      _imagePath = imagePath;
+    });
   }
 
   @override
@@ -39,6 +51,9 @@ class _ViewProfileState extends State<ViewProfile> {
       final fileName = DateTime.now().millisecondsSinceEpoch.toString();
       final savedImage = File('${appDir.path}/$fileName.png');
       await savedImage.writeAsBytes(await pickedImage.readAsBytes());
+
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('imagePath', savedImage.path);
 
       setState(() {
         _imagePath = savedImage.path;
@@ -118,7 +133,13 @@ class _ViewProfileState extends State<ViewProfile> {
                       // Handle save button press
                       String newEmail = _emailController.text;
                       String newPassword = _passwordController.text;
-                      // Update email and password using Firebase
+
+                      // Update email and password using Firebase or any other backend service
+                      // ...
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Profile saved')),
+                      );
                     },
                     child: Text('Save'),
                     style: ElevatedButton.styleFrom(
